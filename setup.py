@@ -8,7 +8,6 @@ setuptools.setup(
     version="0.1.0",
     author="Omer Enbar",
     author_email="opensource@sensibo.com",
-    url='https://github.com/Sensibo/workast',
     description="API class wrapper for controlling workast.io task manager",
     python_requires=">=3.6.0",
     long_description=long_description,
