@@ -32,7 +32,7 @@ class _Space:
         for sublist in self._raw['subLists']:
             if sublist['name'] == name:
                 return sublist
-        raise KeyError(f"Can't find {name} in f{self._raw['subLists']}")
+        raise KeyError("Can't find {} in {}".format(name, self._raw['subLists']))
 
 
 class _API:
@@ -40,15 +40,15 @@ class _API:
 
     def __init__(self, token):
         self._session = requests.Session()
-        self._session.headers.update({'Authorization': f'Bearer {token}'})
+        self._session.headers.update({'Authorization': 'Bearer {}'.format(token)})
 
     def _post(self, path, **kwargs):
-        response = self._session.post(f'{self._API_ENDPOINT}{path}', **kwargs)
+        response = self._session.post(self._API_ENDPOINT + path, **kwargs)
         response.raise_for_status()
         return response.json()
 
     def _get(self, path, **kwargs):
-        response = self._session.get(f'{self._API_ENDPOINT}{path}', **kwargs)
+        response = self._session.get(self._API_ENDPOINT + path, **kwargs)
         response.raise_for_status()
         return response.json()
 
@@ -63,7 +63,7 @@ class _API:
             data['assignedTo'] = [user['id'] for user in assigned_to]
         if due_date is not None:
             data['dueDate'] = due_date.isoformat()
-        self._post(f'list/{list_id}/task', json=data)
+        self._post('list/{}/task'.format(list_id), json=data)
 
     def users(self):
         return self._get('user')
